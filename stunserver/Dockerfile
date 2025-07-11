@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 USER root
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ Asia/Tokyo

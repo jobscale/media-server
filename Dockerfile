@@ -85,7 +85,7 @@ apt-get-install() {\n\
         && /usr/bin/apt-get --quiet --yes -oAPT::Install-Recommends=false $APT_ARGS install \"\$@\"\n\
     )\n\
     local RC=\$?\n\
-    rm -rf /var/lib/apt/lists/*\n\
+    apt-get clean && rm -rf /var/lib/apt/lists/*\n\
     return \$RC\n\
 }\n" >>/etc/profile
 
@@ -98,7 +98,7 @@ apt-get-install-fix() {\n\
         && until /usr/bin/apt-get --quiet --yes -oAPT::Install-Recommends=false install \"\$@\"; do echo FIXME RETRY; done\n\
     )\n\
     local RC=\$?\n\
-    rm -rf /var/lib/apt/lists/*\n\
+    apt-get clean && rm -rf /var/lib/apt/lists/*\n\
     return \$RC\n\
 }\n" >>/etc/profile
 
@@ -130,7 +130,8 @@ RUN apt-get-install \
         ca-certificates \
         curl \
         dnsutils \
-        gnupg
+        gnupg \
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Add Kurento Apt package repository.
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5AFA7A83 \

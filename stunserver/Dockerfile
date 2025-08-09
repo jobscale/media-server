@@ -1,10 +1,10 @@
 FROM debian:bookworm-slim
 USER root
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ Asia/Tokyo
 RUN set -ex \
  && apt-get update \
- && apt-get install -y build-essential libboost-all-dev libssl-dev \
+ && apt-get install -y --no-install-recommends build-essential libboost-all-dev libssl-dev \
     g++ make git \
  && apt-get clean -y \
  && rm -rf /var/lib/apt/lists/*
